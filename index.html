@@ -14,6 +14,7 @@
       --bg: #f5f5f1;
       --text: #0e0e0e;
       --muted: #6c6c68;
+      --muted-dark: #575753;
     }
 
     * {
@@ -57,33 +58,79 @@
       font-weight: 600;
     }
 
-    .animated-line {
-      position: relative;
-      height: 1.4em;
+    .animation-block {
       margin-top: 24px;
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      color: var(--muted);
-      letter-spacing: -0.01em;
+      min-height: 3.2em;
     }
 
-    .word {
-      position: absolute;
-      left: 0;
-      top: 0;
+    .line-one,
+    .line-two {
       opacity: 0;
-      animation: fadeOnly 16s infinite;
     }
 
-    .word:nth-child(1) { animation-delay: 0s; }
-    .word:nth-child(2) { animation-delay: 4s; }
-    .word:nth-child(3) { animation-delay: 8s; }
-    .word:nth-child(4) { animation-delay: 12s; }
+    .line-one {
+      color: var(--muted-dark);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      letter-spacing: -0.01em;
+      display: flex;
+      gap: 0.42em;
+      flex-wrap: wrap;
+      animation: lineFade 12s infinite;
+    }
 
-    @keyframes fadeOnly {
+    .line-two {
+      margin-top: 0.2em;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      letter-spacing: -0.01em;
+      animation: lineFade 12s infinite;
+      animation-delay: 0s;
+    }
+
+    .line-one span {
+      opacity: 0;
+      animation: wordAppear 12s infinite;
+    }
+
+    .line-one span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .line-one span:nth-child(2) {
+      animation-delay: 0.8s;
+    }
+
+    .line-one span:nth-child(3) {
+      animation-delay: 1.6s;
+    }
+
+    .line-two span {
+      opacity: 0;
+      animation: launchAppear 12s infinite;
+    }
+
+    @keyframes wordAppear {
       0%   { opacity: 0; }
-      8%   { opacity: 1; }
-      25%  { opacity: 1; }
-      33%  { opacity: 0; }
+      6%   { opacity: 0; }
+      10%  { opacity: 1; }
+      58%  { opacity: 1; }
+      66%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes launchAppear {
+      0%   { opacity: 0; }
+      26%  { opacity: 0; }
+      32%  { opacity: 1; }
+      58%  { opacity: 1; }
+      66%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes lineFade {
+      0%   { opacity: 1; }
+      58%  { opacity: 1; }
+      66%  { opacity: 0; }
       100% { opacity: 0; }
     }
 
@@ -113,6 +160,12 @@
       font-size: 0.8rem;
       color: var(--muted);
     }
+
+    @media (max-width: 640px) {
+      .animation-block {
+        min-height: 3.8em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -120,11 +173,16 @@
   <main class="wrap">
     <h1>Shayne Ferguson</h1>
 
-    <div class="animated-line">
-      <span class="word">Identity</span>
-      <span class="word">Digital</span>
-      <span class="word">Motion</span>
-      <span class="word">Launching soon</span>
+    <div class="animation-block">
+      <div class="line-one">
+        <span>Identity</span>
+        <span>Digital</span>
+        <span>Motion</span>
+      </div>
+
+      <div class="line-two">
+        <span>Launching soon</span>
+      </div>
     </div>
 
     <div class="meta">
